@@ -2,17 +2,24 @@ import requests
 from coordinates import get_coordinates
 from api_service import get_weather
 from bs4 import BeautifulSoup
-
+from datetime import datetime, timedelta, time
 
 def helper() -> str:
     help_msg = f'На данный момент доступно:\n'\
                f'/weather - Погода \n'\
-               f'/cat - Рандомная картинка с котиком \n'\
                f'/horoscope - Гороскоп \n'\
                f'/action - Действие\n'\
                f'/casino - CASINO\n\n'\
-               f'Работает Анти-флуд команд!!!'
+               f'Работает Анти-флуд на некоторые комманды!!!'
     return help_msg
+
+
+def timer(dt=None):
+    if dt is None:
+        dt = datetime.now()
+    tomorrow = dt + timedelta(days=1)
+    timer = (str(datetime.combine(tomorrow, time.min) - dt)[:-10]).split(':')
+    return timer
 
 
 def horoscope_message(zodiac_sign: str, day: str) -> str:
